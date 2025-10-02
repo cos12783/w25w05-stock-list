@@ -73,7 +73,13 @@ const TickerCard = ({ ticker }) => {
   const isKoreanStock = ticker.endsWith('.KS') || ticker.endsWith('.KQ')
   const currencyMarker = isKoreanStock ? '₩' : '$'
 
+  const stockUrl = isKoreanStock 
+  ? `https://finance.naver.com/item/main.naver?code=${meta.symbol.replace('.KS', '').replace('.KQ', '')}`
+  : `https://www.google.com/finance/quote/${ticker}:${meta.exchangeName == 'NMS' ? "NASDAQ" : "NYSE"}`;
+
   return (
+    <a href={stockUrl} target="_blank" rel="noopener noreferrer">
+
     <div className="bg-white rounded-lg shadow-xl p-6 w-80 
     transform transition duration-500 hover:scale-105">
       <div className="flex justify-between items-center mb-4">
@@ -103,6 +109,7 @@ const TickerCard = ({ ticker }) => {
         previousClose.toLocaleString() : previousClose.toFixed(2)}
       </div>
     </div>
+    </a>
   )
 }
 export default TickerCard
